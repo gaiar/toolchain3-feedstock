@@ -153,8 +153,10 @@ if [[ -z $mode ]]; then
     done
 fi
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 add_ccache=false
-if [[ -f $PREFIX/bin/ccache ]]; then
+if [[ -f $SCRIPT_DIR/../ccache ]]; then
     if [[ $mode == ccld || $mode == cc ]]; then
         add_ccache=true
     fi
@@ -165,7 +167,7 @@ fi
 # this script doesn't just call itself
 #
 IFS=':' read -ra env_path <<< "$PATH"
-IFS=':' read -ra conda_forge_env_dirs <<< "$PREFIX/bin/conda_forge"
+IFS=':' read -ra conda_forge_env_dirs <<< "$SCRIPT_DIR"
 conda_forge_env_dirs+=("" ".")
 PATH=""
 for dir in "${env_path[@]}"; do
