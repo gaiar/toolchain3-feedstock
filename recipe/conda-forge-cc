@@ -153,10 +153,10 @@ if [[ -z $mode ]]; then
     done
 fi
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CONDA_FORGE_PREFIX="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../.. && pwd )"
 
 add_ccache=false
-if [[ -f $SCRIPT_DIR/../ccache ]]; then
+if [[ -f $CONDA_FORGE_PREFIX/bin/ccache ]]; then
     if [[ $mode == ccld || $mode == cc ]]; then
         add_ccache=true
     fi
@@ -167,7 +167,7 @@ fi
 # this script doesn't just call itself
 #
 IFS=':' read -ra env_path <<< "$PATH"
-IFS=':' read -ra conda_forge_env_dirs <<< "$SCRIPT_DIR"
+IFS=':' read -ra conda_forge_env_dirs <<< "$CONDA_FORGE_PREFIX/bin/conda_forge"
 conda_forge_env_dirs+=("" ".")
 PATH=""
 for dir in "${env_path[@]}"; do
@@ -244,9 +244,9 @@ esac
 
 if [[ "${CONDA_FORGE_ADD_RPATHS}" != "off" ]]; then
     if [[ $mode == ccld ]]; then
-        $add_rpaths && args=("-Wl,-rpath,${PREFIX}/lib" "${args[@]}")
+        $add_rpaths && args=("-Wl,-rpath,${CONDA_FORGE_PREFIX}/lib" "${args[@]}")
     elif [[ $mode == ld ]]; then
-        $add_rpaths && args=("-rpath" "${PREFIX}/lib" "${args[@]}")
+        $add_rpaths && args=("-rpath" "${CONDA_FORGE_PREFIX}/lib" "${args[@]}")
     fi
 fi
 
