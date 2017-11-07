@@ -4,5 +4,5 @@ setlocal EnableDelayedExpansion
 :: This will allow them to be run on environment activation.
 FOR %%F IN (activate deactivate) DO (
     IF NOT EXIST %PREFIX%\etc\conda\%%F.d MKDIR %PREFIX%\etc\conda\%%F.d
-    COPY %RECIPE_DIR%\%%F.bat %PREFIX%\etc\conda\%%F.d\toolchain3_%%F.bat
+    COPY %RECIPE_DIR%\%%F.bat %PREFIX%\etc\conda\%%F.d\%PKG_NAME%_%%F.bat
 )
