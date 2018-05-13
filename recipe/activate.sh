@@ -47,10 +47,10 @@ then
     export PREFIX=$CONDA_PREFIX
 fi
 
-if [ ! -z "$ARCH" ]
+if [ ! -z "$ARCH" ] && [ "$ARCH" == "armv7l" ]
 then
-    export CONDA_FORGE_CFLAGS="${CONDA_FORGE_CFLAGS} -m${ARCH}"
-    export CONDA_FORGE_CXXFLAGS="${CONDA_FORGE_CXXFLAGS} -m${ARCH}"
+    export CONDA_FORGE_CFLAGS="${CONDA_FORGE_CFLAGS} -march=native -mtune=native"
+    export CONDA_FORGE_CXXFLAGS="${CONDA_FORGE_CXXFLAGS} -march=native -mtune=native"
 fi
 
 export CONDA_FORGE_CPPFLAGS="${CONDA_FORGE_CPPFLAGS} -I${PREFIX}/include"

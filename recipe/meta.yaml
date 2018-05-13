@@ -1,6 +1,6 @@
 package:
-  name: toolchain3
-  version: 1.1.1
+  name: toolchain3-rpi3
+  version: 0.5
 
 build:
   number: 0
@@ -10,19 +10,13 @@ test:
     # Verify the scripts are in-place.
     {% for state in ["activate", "deactivate"] %}
     - test -f "${PREFIX}/etc/conda/{{ state }}.d/toolchain3_{{ state }}.sh"                # [unix]
-    - if not exist %PREFIX%\\etc\\conda\\{{ state }}.d\\toolchain3_{{ state }}.bat exit 1  # [win]
     {% endfor %}
 
 about:
-  home: https://github.com/conda-forge/toolchain3-feedstock
+  home: https://github.com/gaiar/toolchain3-feedstock
   license: BSD 3-Clause
   summary: A meta-package to enable the right toolchain.
 
 extra:
   recipe-maintainers:
-    - isuruf
-    - jakirkham
-    - msarahan
-    - patricksnape
-    - pelson
-    - scopatz
+    - gaiar
